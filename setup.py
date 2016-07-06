@@ -108,7 +108,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'rqr=rqr:main',
+            'rqr=rqr.main:cli',
         ],
     },
 )
