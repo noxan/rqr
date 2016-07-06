@@ -4,7 +4,6 @@ import click
 def cli():
     pass
 
-@click.command()
+@cli.command()
 def hello():
     click.echo('Hello rqr!')
-cli.add_command(hello)
