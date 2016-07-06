@@ -9,6 +9,11 @@ def hello():
     click.echo('Hello rqr!')
 
 @cli.command()
-@click.option('--save', is_flag=True, default=False)
-def install(save):
-    click.echo('install with{0} save'.format('' if save else 'out'))
+@click.option('--save', 'target', flag_value='base')
+@click.option('--save-development', 'target', flag_value='development')
+@click.option('--save-production', 'target', flag_value='production')
+def install(target = None):
+    if target:
+        click.echo('install and save to ' + target)
+    else:
+        click.echo('install')
