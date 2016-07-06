@@ -1,12 +1,23 @@
 import click
 
+from .requirements import load_requirements
+
 @click.group()
 def cli():
     pass
 
 @cli.command()
-def hello():
-    click.echo('Hello rqr!')
+def list():
+    try:
+        requirements = load_requirements()
+    except FileNotFoundError:
+        raise click.UsageError('Requirements file not found. Call migrate or init to get started.')
+    else:
+        for target in requirements:
+            click.echo('{}:'.format(target))
+            for requirement in requirements[target]:
+                version = requirements[target][requirement]
+                click.echo('  - {}@{}'.format(requirement, version))
 
 @cli.command()
 @click.option('--save', 'target', flag_value='base')
