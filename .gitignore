@@ -1,5 +1,8 @@
 # vim
 *.sw[op]
 
+# python
+__pycache__/
+
 # pip
 *.egg-info
