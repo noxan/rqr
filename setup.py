@@ -75,6 +75,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
+        'Click',
         'packaging',
         'requests',
         'PyYAML',
