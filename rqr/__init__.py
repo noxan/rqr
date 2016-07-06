@@ -1,6 +1,7 @@
 import requests
 from packaging.version import Version
 
+from .serializer import serialize
 
 def get_last_version(pkg_name):
     response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
@@ -13,6 +14,7 @@ def get_last_version(pkg_name):
             return version
 
 def check_file_for_updates(filename):
+    requirements = {'base': {}}
     f = open(filename, 'r')
     line = True
     while line:
@@ -25,11 +27,14 @@ def check_file_for_updates(filename):
 
             if latest_version > current_version:
                 print(pkg_name, current_version, '->', latest_version)
+                requirements['base'][pkg_name] = str(latest_version)
             else:
                 print(pkg_name, 'ok')
+                requirements['base'][pkg_name] = str(current_version)
         elif len(line.strip()) is not 0:
             print('Invalid line', line)
         # else: empty line
+    serialize(requirements)
 
 def main():
     check_file_for_updates('./requirements/base.txt')
