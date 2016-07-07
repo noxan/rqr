@@ -1,6 +1,8 @@
 import click
 
-from .requirements import load_requirements
+from .requirements import Requirements, load_requirements
+
+rqr = Requirements()
 
 @click.group()
 def cli():
@@ -20,10 +22,12 @@ def list():
                 click.echo('  - {}@{}'.format(requirement, version))
 
 @cli.command()
+@click.argument('pkg')
 @click.option('--save', 'target', flag_value='base')
 @click.option('--save-development', 'target', flag_value='development')
 @click.option('--save-production', 'target', flag_value='production')
-def install(target = None):
+def install(pkg, target = None):
+    rqr.install(pkg)
     if target:
         click.echo('install and save to ' + target)
     else:
