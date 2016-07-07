@@ -20,15 +20,13 @@ Usage
 Install
 ~~~~~~~
 
-WARNING: Please just one at a time for now. Does not handle multiple packages at this moment.
-
 Just like `pip install` with the possibility to `--save` your required package.
 
 .. code:: bash
 
-    $ rqr install --save django
+    $ rqr install --save django ipython
 
-    {'django': '1.9.7'}
+    {'django': '1.9.7', 'ipython: '4.2.1'}
 
 Does also support `--save-development` and `--save-production`. Default is `base` which is shared across the other two.
 
