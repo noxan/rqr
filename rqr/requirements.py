@@ -13,7 +13,9 @@ class Requirements:
         with open(FILENAME, 'r') as stream:
             self.pkgs = yaml.load(stream)
 
-    def install(self, pkg):
+    def install(self, pkg, target):
+        if target:
+            print('TODO: save pkg to ' + target)
         pip.main(['install', pkg])
 
     def __str__(self):

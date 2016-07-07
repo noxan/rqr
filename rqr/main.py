@@ -16,8 +16,4 @@ def list():
 @click.option('--save-development', 'target', flag_value='development')
 @click.option('--save-production', 'target', flag_value='production')
 def install(pkg, target = None):
-    cli.rqr.install(pkg)
-    if target:
-        click.echo('install and save to ' + target)
-    else:
-        click.echo('install')
+    cli.rqr.install(pkg, target)
