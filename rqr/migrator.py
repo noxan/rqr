@@ -49,6 +49,7 @@ class Migrator:
             stream.close()
 
     def parse_file_line(self, target, line):
+        # TODO: do discover other pinned versions not just exact matches
         parts = line.split('==')
         if len(parts) is 2:
             pkg, version = parts
