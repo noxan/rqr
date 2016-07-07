@@ -46,3 +46,28 @@ Shows all managed requirements, just like `pip list`.
       - django@1.9.7
     development:
       - ipython@4.2.1
+
+Migrate
+~~~~~~~
+
+WARNING: Does override your `rqr.yaml` configuration if you had one before without any further warning.
+
+Tries to discover existing `requirements` files or folders and migrate them. Uses current working directory and does not traverse directories deeply.
+
+.. code:: bash
+
+    $ rqr migrate
+
+    Discovered dev-requirements.txt (development)
+    Discovered requirements/base.txt (base)
+      - django@1.9.3
+      - djangorestframework@3.3.1
+      - pillow@3.1.1
+    Discovered requirements/development.txt (development)
+      - Invalid: -r base.txt
+      - ipython@4.0.0
+    Discovered requirements/production.txt (production)
+      - Invalid: -r base.txt
+      - gunicorn@19.3.0
+    Discovered requirements-dev.txt (development)
+    Discovered requirements.txt (base)
