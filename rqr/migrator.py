@@ -34,3 +34,9 @@ class Migrator:
     def migrate_file(self, filename):
         target = self.discover_target(filename)
         print(filename, 'for', target)
+        with open(filename, 'r') as stream:
+            line = True
+            while line:
+                line = stream.readline().strip()
+                print(line)
+            stream.close()
