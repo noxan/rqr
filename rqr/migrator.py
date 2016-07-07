@@ -18,6 +18,7 @@ class Migrator:
             'production': {},
         }
         self.search()
+        return self.pkgs
 
     def search(self):
         for item in os.listdir(os.getcwd()):

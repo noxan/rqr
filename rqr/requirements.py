@@ -22,7 +22,9 @@ class Requirements:
             self.pkgs = {}
 
     def migrate(self):
-        self.migrator.run()
+        # TODO: rather merge than override
+        self.pkgs = self.migrator.run()
+        self.save()
 
     def add(self, pkg, target, version):
         if target not in self.pkgs:
