@@ -15,3 +15,12 @@ class Requirements:
 
     def install(self, pkg):
         pip.main(['install', pkg])
+
+    def __str__(self):
+        res = []
+        for target in self.pkgs:
+            res.append(target + ':')
+            for requirement in self.pkgs[target]:
+                version = self.pkgs[target][requirement]
+                res.append('  - {0}@{1}'.format(requirement, version))
+        return '\n'.join(res)

@@ -15,11 +15,7 @@ def list():
     except FileNotFoundError:
         raise click.UsageError('Requirements file not found. Call migrate or init to get started.')
     else:
-        for target in requirements:
-            click.echo('{}:'.format(target))
-            for requirement in requirements[target]:
-                version = requirements[target][requirement]
-                click.echo('  - {}@{}'.format(requirement, version))
+        click.echo(str(rqr))
 
 @cli.command()
 @click.argument('pkg')
