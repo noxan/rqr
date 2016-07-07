@@ -19,7 +19,12 @@ class Requirements:
         if target not in self.pkgs:
             self.pkgs[target] = {}
         self.pkgs[target][pkg] = version
-        # TODO: save changes
+        self.save()
+
+    def save(self):
+        with open(FILENAME, 'w') as stream:
+            yaml.dump(self.pkgs, stream, default_flow_style=False)
+            stream.close()
 
     def install(self, pkg, target):
         version = str(get_last_version(pkg))
