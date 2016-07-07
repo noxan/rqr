@@ -2,7 +2,9 @@ import re
 import os
 
 TARGET_PRODUCTION_PATTERN = '(prod|production)'
+TARGET_PRODUCTION_REGEX = re.compile('.*{0}.*'.format(TARGET_PRODUCTION_PATTERN))
 TARGET_DEVELOPMENT_PATTERN = '(dev|development)'
+TARGET_DEVELOPMENT_REGEX = re.compile('.*{0}.*'.format(TARGET_DEVELOPMENT_PATTERN))
 TARGETS_PATTERN = '(base|{0}|{1})'.format(TARGET_PRODUCTION_PATTERN, TARGET_DEVELOPMENT_PATTERN)
 REQUIREMENTS_REGEX = re.compile('({0}-)?requirements(-{0})?.txt'.format(TARGETS_PATTERN))
 TARGETS_REGEX = re.compile('{0}.txt'.format(TARGETS_PATTERN))
@@ -21,5 +23,14 @@ class Migrator:
             elif os.path.isfile(item) and REQUIREMENTS_REGEX.match(item):
                 self.migrate_file(item)
 
+    def discover_target(self, filename):
+        if TARGET_PRODUCTION_REGEX.match(filename):
+            return 'production'
+        elif TARGET_DEVELOPMENT_REGEX.match(filename):
+            return 'development'
+        else:
+            return 'base'
+
     def migrate_file(self, filename):
-        print(filename)
+        target = self.discover_target(filename)
+        print(filename, 'for', target)
