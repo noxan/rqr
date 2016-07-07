@@ -12,6 +12,11 @@ REQUIREMENTS_FOLDER_NAME = 'requirements'
 
 class Migrator:
     def run(self):
+        self.pkgs = {
+            'base': {},
+            'development': {},
+            'production': {},
+        }
         self.search()
 
     def search(self):
@@ -33,10 +38,20 @@ class Migrator:
 
     def migrate_file(self, filename):
         target = self.discover_target(filename)
-        print(filename, 'for', target)
+        print('Discovered {0} ({1})'.format(filename, target))
         with open(filename, 'r') as stream:
             line = True
             while line:
                 line = stream.readline().strip()
-                print(line)
+                if line:
+                    self.parse_file_line(target, line)
             stream.close()
+
+    def parse_file_line(self, target, line):
+        parts = line.split('==')
+        if len(parts) is 2:
+            pkg, version = parts
+            self.pkgs[target][pkg] = version
+            print('  - {0}@{1}'.format(pkg, version))
+        else:
+            print('  - Invalid:', line)
