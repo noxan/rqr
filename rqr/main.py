@@ -17,3 +17,7 @@ def list():
 @click.option('--save-production', 'target', flag_value='production')
 def install(pkg, target = None):
     click.echo(cli.rqr.install(pkg, target))
+
+@cli.command()
+def migrate():
+    cli.rqr.migrate()

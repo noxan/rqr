@@ -2,6 +2,7 @@ import pip
 import yaml
 
 from .updater import get_last_version
+from .migrator import Migrator
 
 FILENAME = 'rqr.yaml'
 
@@ -9,6 +10,7 @@ FILENAME = 'rqr.yaml'
 class Requirements:
     def __init__(self):
         self.pkgs = {}
+        self.migrator = Migrator()
         self.reload()
 
     def reload(self):
@@ -18,6 +20,9 @@ class Requirements:
                 stream.close()
         except FileNotFoundError:
             self.pkgs = {}
+
+    def migrate(self):
+        self.migrator.run()
 
     def add(self, pkg, target, version):
         if target not in self.pkgs:
