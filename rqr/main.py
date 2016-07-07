@@ -2,20 +2,13 @@ import click
 
 from .requirements import Requirements
 
-rqr = Requirements()
-
 @click.group()
 def cli():
-    pass
+    cli.rqr = Requirements()
 
 @cli.command()
 def list():
-    try:
-        requirements = rqr.pkgs
-    except FileNotFoundError:
-        raise click.UsageError('Requirements file not found. Call migrate or init to get started.')
-    else:
-        click.echo(str(rqr))
+    click.echo(cli.rqr)
 
 @cli.command()
 @click.argument('pkg')
@@ -23,7 +16,7 @@ def list():
 @click.option('--save-development', 'target', flag_value='development')
 @click.option('--save-production', 'target', flag_value='production')
 def install(pkg, target = None):
-    rqr.install(pkg)
+    cli.rqr.install(pkg)
     if target:
         click.echo('install and save to ' + target)
     else:
