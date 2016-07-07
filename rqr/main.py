@@ -11,7 +11,7 @@ def cli():
 @cli.command()
 def list():
     try:
-        requirements = rqr.load()
+        requirements = rqr.pkgs
     except FileNotFoundError:
         raise click.UsageError('Requirements file not found. Call migrate or init to get started.')
     else:
