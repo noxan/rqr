@@ -1,6 +1,8 @@
 import pip
 import yaml
 
+from .updater import get_last_version
+
 FILENAME = 'rqr.yaml'
 
 
@@ -13,10 +15,18 @@ class Requirements:
         with open(FILENAME, 'r') as stream:
             self.pkgs = yaml.load(stream)
 
+    def add(self, pkg, target, version):
+        if target not in self.pkgs:
+            self.pkgs[target] = {}
+        self.pkgs[target][pkg] = version
+        # TODO: save changes
+
     def install(self, pkg, target):
+        version = str(get_last_version(pkg))
         if target:
-            print('TODO: save pkg to ' + target)
+            self.add(pkg, target, version)
         pip.main(['install', pkg])
+        return { pkg: version }
 
     def __str__(self):
         res = []
