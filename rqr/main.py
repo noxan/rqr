@@ -1,6 +1,6 @@
 import click
 
-from .requirements import Requirements, load_requirements
+from .requirements import Requirements
 
 rqr = Requirements()
 
@@ -11,7 +11,7 @@ def cli():
 @cli.command()
 def list():
     try:
-        requirements = load_requirements()
+        requirements = rqr.load()
     except FileNotFoundError:
         raise click.UsageError('Requirements file not found. Call migrate or init to get started.')
     else:
