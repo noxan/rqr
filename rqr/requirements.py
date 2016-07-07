@@ -12,8 +12,12 @@ class Requirements:
         self.reload()
 
     def reload(self):
-        with open(FILENAME, 'r') as stream:
-            self.pkgs = yaml.load(stream)
+        try:
+            with open(FILENAME, 'r') as stream:
+                self.pkgs = yaml.load(stream)
+                stream.close()
+        except FileNotFoundError:
+            self.pkgs = {}
 
     def add(self, pkg, target, version):
         if target not in self.pkgs:
