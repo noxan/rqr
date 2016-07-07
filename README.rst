@@ -1,14 +1,17 @@
-# rqr
+rqr
+===
 
 Python ReQuiRements.
 
 WARNING: This is alpha and a pure prototype at the moment.
 
-# Installation
+Installation
+------------
 
     $ pip install rqr
 
-# Usage
+Usage
+-----
 
 Call `rqr` and it will parse your requirement file, showing you possible updates.
 
