@@ -1,3 +1,4 @@
+import itertools
 import pip
 import yaml
 
@@ -37,12 +38,21 @@ class Requirements:
             yaml.dump(self.pkgs, stream, default_flow_style=False)
             stream.close()
 
-    def install(self, pkg, target):
-        version = str(get_last_version(pkg))
-        if target:
-            self.add(pkg, target, version)
-        pip.main(['install', pkg])
-        return { pkg: version }
+    def install(self, ipkgs, target):
+        pkgs = {}
+        if len(ipkgs) == 0: # no argument supplied, try to install from config
+            pkgs = self.pkgs
+        else:
+            for pkg in ipkgs:
+                pkgs[pkg] = str(get_last_version(pkg))
+                if target:
+                    self.add(pkg, target, pkgs[pkg])
+
+        # flat list of all packages of all targets to install with their version
+        pip_ipkgs = itertools.chain.from_iterable([pkgs[target].items() for target in pkgs])
+        # join to pkg==version format for pip
+        pip.main(['install'] + ['=='.join(pkg) for pkg in pip_ipkgs])
+        return pkgs
 
     def __str__(self):
         res = []
