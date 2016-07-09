@@ -5,7 +5,15 @@ from .serializer import serialize
 
 class Updater:
     def update(self, pkgs):
-        return pkgs
+        updates = []
+        for target in pkgs:
+            for pkg, ver in pkgs[target].items():
+                current_version = Version(ver)
+                lastest_version = self.get_last_version(pkg)
+                if lastest_version > current_version:
+                    updates.append((pkg, current_version, lastest_version))
+                    pkgs[target][pkg] = lastest_version
+        return (pkgs, updates)
 
     def get_last_version(self, pkg_name):
         response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))

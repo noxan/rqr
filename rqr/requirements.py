@@ -30,8 +30,8 @@ class Requirements:
 
     def update(self):
         old_pkgs = self.pkgs
-        self.pkgs = self.updater.update(self.pkgs)
-        return { 'old': old_pkgs, 'new': self.pkgs }
+        self.pkgs, updates  = self.updater.update(self.pkgs)
+        return updates
 
     def add(self, pkg, target, version):
         if target not in self.pkgs:
