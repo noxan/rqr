@@ -2,7 +2,7 @@ import itertools
 import pip
 import yaml
 
-from .updater import get_last_version
+from .updater import Updater
 from .migrator import Migrator
 
 FILENAME = 'rqr.yaml'
@@ -12,6 +12,7 @@ class Requirements:
     def __init__(self):
         self.pkgs = {}
         self.migrator = Migrator()
+        self.updater = Updater()
         self.reload()
 
     def reload(self):
@@ -26,6 +27,11 @@ class Requirements:
         # TODO: rather merge than override
         self.pkgs = self.migrator.run()
         self.save()
+
+    def update(self):
+        old_pkgs = self.pkgs
+        self.pkgs, updates  = self.updater.update(self.pkgs)
+        return updates
 
     def add(self, pkg, target, version):
         if target not in self.pkgs:
@@ -45,7 +51,7 @@ class Requirements:
                 pkgs = self.pkgs[target]
         else:
             for pkg in ipkgs:
-                pkgs[pkg] = str(get_last_version(pkg))
+                pkgs[pkg] = str(self.updater.get_last_version(pkg))
                 if target:
                     self.add(pkg, target, pkgs[pkg])
 

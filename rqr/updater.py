@@ -3,15 +3,27 @@ from packaging.version import Version
 
 from .serializer import serialize
 
-def get_last_version(pkg_name):
-    response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
-    pkginfo = response.json()
+class Updater:
+    def update(self, pkgs):
+        updates = []
+        for target in pkgs:
+            for pkg, ver in pkgs[target].items():
+                current_version = Version(ver)
+                lastest_version = self.get_last_version(pkg)
+                if lastest_version > current_version:
+                    updates.append((pkg, current_version, lastest_version))
+                    pkgs[target][pkg] = lastest_version
+        return (pkgs, updates)
 
-    releases = pkginfo['releases']
-    for release in sorted(releases.keys(), reverse=True):
-        version = Version(release)
-        if not version.is_prerelease:
-            return version
+    def get_last_version(self, pkg_name):
+        response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
+        pkginfo = response.json()
+
+        releases = pkginfo['releases']
+        for release in sorted(releases.keys(), reverse=True):
+            version = Version(release)
+            if not version.is_prerelease:
+                return version
 
 def check_file_for_updates(filename):
     requirements = {'base': {}}
