@@ -45,6 +45,17 @@ Shows all managed requirements, just like `pip list`.
     development:
       - ipython@4.2.1
 
+Update
+~~~~~~
+
+Checks for updates in your `rqr.yaml` file's packages. Does write new versions to file by default, to do otherwise use `--dry-run` flag.
+
+.. code:: bash
+
+    $ rqr update
+
+    django 1.3.0 -> 1.9.7
+
 Migrate
 ~~~~~~~
 
