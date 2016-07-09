@@ -28,9 +28,11 @@ class Requirements:
         self.pkgs = self.migrator.run()
         self.save()
 
-    def update(self):
+    def update(self, save = True):
         old_pkgs = self.pkgs
         self.pkgs, updates  = self.updater.update(self.pkgs)
+        if save:
+            self.save()
         return updates
 
     def add(self, pkg, target, version):
