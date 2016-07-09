@@ -2,7 +2,7 @@ import itertools
 import pip
 import yaml
 
-from .updater import Updater, get_last_version
+from .updater import Updater
 from .migrator import Migrator
 
 FILENAME = 'rqr.yaml'
@@ -50,7 +50,7 @@ class Requirements:
             pkgs = self.pkgs
         else:
             for pkg in ipkgs:
-                pkgs[pkg] = str(get_last_version(pkg))
+                pkgs[pkg] = str(cli.updater.get_last_version(pkg))
                 if target:
                     self.add(pkg, target, pkgs[pkg])
 

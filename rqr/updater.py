@@ -7,15 +7,15 @@ class Updater:
     def update(self, pkgs):
         return pkgs
 
-def get_last_version(pkg_name):
-    response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
-    pkginfo = response.json()
+    def get_last_version(self, pkg_name):
+        response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
+        pkginfo = response.json()
 
-    releases = pkginfo['releases']
-    for release in sorted(releases.keys(), reverse=True):
-        version = Version(release)
-        if not version.is_prerelease:
-            return version
+        releases = pkginfo['releases']
+        for release in sorted(releases.keys(), reverse=True):
+            version = Version(release)
+            if not version.is_prerelease:
+                return version
 
 def check_file_for_updates(filename):
     requirements = {'base': {}}
