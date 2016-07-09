@@ -61,7 +61,7 @@ Migrate
 
 WARNING: Does override your ``rqr.yaml`` configuration if you had one before without any further warning.
 
-Tries to discover existing ``requirements`` files or folders and migrate them. Uses current working directory and does not traverse directories deeply.
+Tries to discover existing requirements files or folders and migrate them. Uses current working directory and does not traverse directories deeply.
 
 .. code:: bash
 
