@@ -1,5 +1,6 @@
 import itertools
 import pip
+import os
 import yaml
 
 from .updater import Updater
@@ -63,7 +64,8 @@ class Requirements:
             for pkgver in pkgs[target].items():
                 installs.append('=='.join(pkgver))
 
-        pip.main(['install'] + installs)
+        path = os.path.join(os.getcwd(), '.env')
+        pip.main(['install'] + installs + ['-t ' + path])
         return pkgs
 
     def __str__(self):

@@ -1,5 +1,8 @@
 import click
 
+from .env import Env
+Env().ensure()
+
 from .requirements import Requirements
 
 @click.group()
