@@ -10,3 +10,6 @@ __pycache__/
 
 # rqr
 rqr.yaml
+
+# venv
+.env/
