@@ -13,6 +13,8 @@ class Updater:
                 if lastest_version > current_version:
                     updates.append((pkg, current_version, lastest_version))
                     pkgs[target][pkg] = str(lastest_version)
+                else:
+                    pkgs[target][pkg] = str(current_version)
         return (pkgs, updates)
 
     def get_last_version(self, pkg_name):
