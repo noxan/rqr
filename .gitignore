@@ -7,3 +7,6 @@ __pycache__/
 # pip
 *.egg-info
 /dist/
+
+# rqr
+rqr.yaml
