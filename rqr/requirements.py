@@ -49,18 +49,21 @@ class Requirements:
     def install(self, ipkgs, target):
         pkgs = {}
         if len(ipkgs) == 0: # no argument supplied, try to install from config
-            if target in self.pkgs:
-                pkgs = self.pkgs[target]
+            pkgs = self.pkgs
         else:
             for pkg in ipkgs:
-                pkgs[pkg] = str(self.updater.get_last_version(pkg))
+                if not target in pkgs:
+                    pkgs[target] = {}
+                pkgs[target][pkg] = str(self.updater.get_last_version(pkg))
                 if target:
-                    self.add(pkg, target, pkgs[pkg])
+                    self.add(pkg, target, pkgs[target][pkg])
 
-        # flat list of all packages of all targets to install with their version
-        pip_ipkgs = itertools.chain.from_iterable([pkgs.items() for target in pkgs])
-        # join to pkg==version format for pip
-        pip.main(['install'] + ['=='.join(pkg) for pkg in pip_ipkgs])
+        installs = []
+        for target in pkgs:
+            for pkgver in pkgs[target].items():
+                installs.append('=='.join(pkgver))
+
+        pip.main(['install'] + installs)
         return pkgs
 
     def __str__(self):
