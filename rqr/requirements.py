@@ -50,7 +50,7 @@ class Requirements:
             pkgs = self.pkgs
         else:
             for pkg in ipkgs:
-                pkgs[pkg] = str(cli.updater.get_last_version(pkg))
+                pkgs[pkg] = str(self.updater.get_last_version(pkg))
                 if target:
                     self.add(pkg, target, pkgs[pkg])
 
