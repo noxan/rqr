@@ -34,6 +34,8 @@ Does also support ``--save-development`` and ``--save-production``. Default is `
 List
 ~~~~
 
+WARNING: This does display all managed requirements, but it does NOT say anything about the installed ones.
+
 Shows all managed requirements, just like ``pip list``.
 
 .. code:: bash
