@@ -41,7 +41,8 @@ class Requirements:
     def install(self, ipkgs, target):
         pkgs = {}
         if len(ipkgs) == 0: # no argument supplied, try to install from config
-            pkgs = self.pkgs
+            if target in self.pkgs:
+                pkgs = self.pkgs[target]
         else:
             for pkg in ipkgs:
                 pkgs[pkg] = str(get_last_version(pkg))
@@ -49,7 +50,7 @@ class Requirements:
                     self.add(pkg, target, pkgs[pkg])
 
         # flat list of all packages of all targets to install with their version
-        pip_ipkgs = itertools.chain.from_iterable([pkgs[target].items() for target in pkgs])
+        pip_ipkgs = itertools.chain.from_iterable([pkgs.items() for target in pkgs])
         # join to pkg==version format for pip
         pip.main(['install'] + ['=='.join(pkg) for pkg in pip_ipkgs])
         return pkgs
