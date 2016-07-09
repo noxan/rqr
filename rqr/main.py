@@ -23,8 +23,9 @@ def migrate():
     cli.rqr.migrate()
 
 @cli.command()
-def update():
-    updates = cli.rqr.update()
+@click.option('--save/--dry-run', default=True)
+def update(save):
+    updates = cli.rqr.update(save)
     if len(updates) is 0:
         click.echo('No updates found.')
     for update in updates:
