@@ -21,3 +21,7 @@ def install(pkgs, target = None):
 @cli.command()
 def migrate():
     cli.rqr.migrate()
+
+@cli.command()
+def update():
+    click.echo(cli.rqr.update())

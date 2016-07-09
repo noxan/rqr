@@ -3,6 +3,10 @@ from packaging.version import Version
 
 from .serializer import serialize
 
+class Updater:
+    def update(self, pkgs):
+        return pkgs
+
 def get_last_version(pkg_name):
     response = requests.get('https://pypi.python.org/pypi/{0}/json'.format(pkg_name))
     pkginfo = response.json()
