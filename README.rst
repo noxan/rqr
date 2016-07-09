@@ -20,7 +20,7 @@ Usage
 Install
 ~~~~~~~
 
-Just like `pip install` with the possibility to `--save` your required package.
+Just like ``pip install`` with the possibility to ``--save`` your required package.
 
 .. code:: bash
 
@@ -28,13 +28,13 @@ Just like `pip install` with the possibility to `--save` your required package.
 
     {'django': '1.9.7', 'ipython: '4.2.1'}
 
-Does also support `--save-development` and `--save-production`. Default is `base` which is shared across the other two.
+Does also support ``--save-development`` and ``--save-production``. Default is ``base`` which is shared across the other two.
 
 
 List
 ~~~~
 
-Shows all managed requirements, just like `pip list`.
+Shows all managed requirements, just like ``pip list``.
 
 .. code:: bash
 
@@ -48,7 +48,7 @@ Shows all managed requirements, just like `pip list`.
 Update
 ~~~~~~
 
-Checks for updates in your `rqr.yaml` file's packages. Does write new versions to file by default, to do otherwise use `--dry-run` flag.
+Checks for updates in your ``rqr.yaml`` file's packages. Does write new versions to file by default, to do otherwise use ``--dry-run`` flag.
 
 .. code:: bash
 
@@ -59,9 +59,9 @@ Checks for updates in your `rqr.yaml` file's packages. Does write new versions t
 Migrate
 ~~~~~~~
 
-WARNING: Does override your `rqr.yaml` configuration if you had one before without any further warning.
+WARNING: Does override your ``rqr.yaml`` configuration if you had one before without any further warning.
 
-Tries to discover existing `requirements` files or folders and migrate them. Uses current working directory and does not traverse directories deeply.
+Tries to discover existing ``requirements`` files or folders and migrate them. Uses current working directory and does not traverse directories deeply.
 
 .. code:: bash
 
