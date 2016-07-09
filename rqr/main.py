@@ -24,4 +24,8 @@ def migrate():
 
 @cli.command()
 def update():
-    click.echo(cli.rqr.update())
+    updates = cli.rqr.update()
+    if len(updates) is 0:
+        click.echo('No updates found.')
+    for update in updates:
+        click.echo('{0} {1} -> {2}'.format(*update))
