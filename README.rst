@@ -1,3 +1,9 @@
+I am happy to see that the original idea of this project has been realised with `pipenv`. Please use it if you should end on this readme, thanks!
+
+https://github.com/pypa/pipenv
+
+
+
 rqr
 ===
 
